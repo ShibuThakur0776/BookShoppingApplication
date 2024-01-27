@@ -1,4 +1,6 @@
 using BookShopping.Service.Data;
+using BookShopping.Service.Repository;
+using BookShopping.Service.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 string cs = builder.Configuration.GetConnectionString("conStr");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(cs));
+builder.Services.AddScoped<ICategoryRepository, CategoyRepository>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
