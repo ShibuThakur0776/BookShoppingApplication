@@ -22,6 +22,7 @@ namespace BookShopping.Service.Repository
         public void Add(T entity)
 		{
 			dbSet.Add(entity);
+			Save();
 		}
 
 		public T FirstOrDefault(Expression<Func<T, bool>> filter = null, string includeProperties = null)
@@ -66,6 +67,7 @@ namespace BookShopping.Service.Repository
 		public void Remove(T entity)
 		{
 			dbSet.Remove(entity);
+			Save();
 		}
 		public void Remove(int id )
 		{
@@ -75,11 +77,18 @@ namespace BookShopping.Service.Repository
 		public void RemoveRange(IEnumerable<T> entity)
 		{
 			dbSet.RemoveRange(entity);
+			Save();
 		}
 
-		public void Update(T entity)
+        public void Save()
+        {
+			_context.SaveChanges();
+        }
+
+        public void Update(T entity)
 		{
 			dbSet.Update(entity);
+			Save();
 		}
 	}
 }

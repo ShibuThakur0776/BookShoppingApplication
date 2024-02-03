@@ -20,5 +20,6 @@ namespace BookShopping.Service.Repository.IRepository
 			string includeProperties = null);//Categories, CoverType
 		T FirstOrDefault(Expression<Func<T, bool>> filter = null,
 			string includePropties = null); //Categories, CoverType
+		void Save();
 	}
 }
