@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookShopping.Service.Repository.IRepository
 {
-    public interface ICoverTypeRepository:IRepository<CoverType>
+    public interface IProductRepository : IRepository<Product>
     {
     }
 }

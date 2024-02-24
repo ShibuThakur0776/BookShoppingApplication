@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BookShopping.Service.Repository
 {
-	public class Repository<T> : IRepostory<T> where T : class
+	public class Repository<T> : IRepository<T> where T : class
 	{
 		private readonly ApplicationDbContext _context;
 		internal DbSet<T> dbSet;
@@ -52,6 +52,7 @@ namespace BookShopping.Service.Repository
 			IQueryable<T> query = dbSet;
 			if (filter != null)
 				query = query.Where(filter);
+				
 			if (includeProperties != null)
 			{
 				foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))

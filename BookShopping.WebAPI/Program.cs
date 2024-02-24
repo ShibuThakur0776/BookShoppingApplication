@@ -12,7 +12,7 @@ string cs = builder.Configuration.GetConnectionString("conStr");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(cs));
 builder.Services.AddScoped<ICategoryRepository, CategoyRepository>();
 builder.Services.AddScoped<ICoverTypeRepository, CoverTypeRepository>();
-
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

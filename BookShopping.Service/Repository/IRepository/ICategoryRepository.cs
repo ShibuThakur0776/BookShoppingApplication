@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookShopping.Service.Repository.IRepository
 {
-    public interface ICategoryRepository:IRepostory<Category>
+    public interface ICategoryRepository:IRepository<Category>
     {
     }
 }

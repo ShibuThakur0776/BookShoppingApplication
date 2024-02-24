@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookShopping.Service.Repository.IRepository
 {
-	public interface IRepostory<T> where T : class
+	public interface IRepository<T> where T : class
 	{
 		void Add(T entity);
 		void Update(T entity);
