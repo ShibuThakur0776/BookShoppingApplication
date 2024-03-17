@@ -27,13 +27,12 @@ namespace BookShopping.WebApp.Repository
             //Postman -- url + obj
             HttpResponseMessage response = await client.SendAsync(request);
             //response - acknowlgment -- call 
-            if(response.StatusCode == System.Net.HttpStatusCode.Created)
+            if(response.StatusCode == System.Net.HttpStatusCode.OK)
                 //letter reviced
                 return true;
             else
                 //letter golmaal
                 return false;
-            
         }
 
         public async Task<bool> DeleteAsync(string url, int id)
@@ -47,19 +46,45 @@ namespace BookShopping.WebApp.Repository
                 return false;
         }
 
-        public Task<IEnumerable<T>> GetAllAsync(string url)
+        public async Task<IEnumerable<T>> GetAllAsync(string url)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var client = _httpClient.CreateClient();
+            HttpResponseMessage response = await client.SendAsync(request);
+            if(response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<IEnumerable<T>>(jsonString);
+            }
+            return null;
         }
 
-        public Task<T> GetAsync(string url, int id)
+        public async Task<T> GetAsync(string url, int id)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Get,url + id.ToString());
+            var client = _httpClient.CreateClient();
+            HttpResponseMessage response = await client.SendAsync(request);
+            if(response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<T>(jsonString);
+            }
+            return null;
         }
 
-        public Task<bool> UpdateAsync(string url, T objToUpdate)
+        public async Task<bool> UpdateAsync(string url, T objToUpdate)
         {
-            throw new NotImplementedException();
+            var request = new HttpRequestMessage(HttpMethod.Put, url);
+            if(objToUpdate != null)
+            {
+                request.Content = new StringContent(JsonConvert.SerializeObject(objToUpdate),Encoding.UTF8, "application/json");
+            }
+            var client = _httpClient.CreateClient();
+            HttpResponseMessage response = await client.SendAsync(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                return true;
+            else
+                return false;
         }
     }
 }
